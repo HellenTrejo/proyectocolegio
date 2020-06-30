@@ -29,6 +29,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_screenutil: ^0.4.2
+  rxdart: ^0.23.1
+  flutter_bloc: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +52,14 @@ flutter:
     - assets/image_01.png
     - assets/image_02.png
     - assets/logo.png
+    - assets/chat.png
+    - assets/main_bottom.png
+    - assets/main_top.png
+    - assets/bg.png
+    - assets/book-1.png
+    - assets/nota.png
+    - assets/fondodato.jpg
+    - assets/fondodato_2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

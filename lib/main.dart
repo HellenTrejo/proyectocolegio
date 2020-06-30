@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Home.dart';
 import 'Widgets/FormCard.dart';
 
 void main() => runApp(MaterialApp(
@@ -100,9 +101,13 @@ class _MyAppState extends State<MyApp>{
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: (){},//Creo que aquí se añade el metodo
+                            onTap: (){
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),);
+                            },//Creo que aquí se añade el metodo
                             child: Center(
-                              child: Text("SING IN", style: TextStyle(color: Colors.white,
+                              child: Text("INGRESAR", style: TextStyle(color: Colors.white,
                               fontFamily: "Poppins-Bold",
                               fontSize: 18,
                               letterSpacing: 1.0
