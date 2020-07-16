@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'Home.dart';
 import 'Widgets/FormCard.dart';
+import 'http/http_helper.dart';
 
 void main() => runApp(MaterialApp(
-    home: MyApp(),
+    home: Screen(),
     debugShowCheckedModeBanner: false,
 ));
 
@@ -14,10 +16,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp>{
+//
+  String result;
+  HttpHelper helper;
+
+  @override
+  void initState() {
+    helper= HttpHelper();
+    super.initState();
+  }
 
   
   @override
   Widget build(BuildContext context) {
+    helper.listaAlumnos().then(
+      (value) {
+        setState(() {
+          result = value;
+        });
+      }
+    );
+
+
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
@@ -34,7 +54,11 @@ class _MyAppState extends State<MyApp>{
                   child: Image.asset("assets/image_01.png"),
                   ),
                   Expanded(
-                    child: Container(),
+                    child: Container(
+                      //
+                      child: Text(result),
+                      //
+                    ),
                     ),
                     Image.asset("assets/image_02.png")
               ],
@@ -64,7 +88,7 @@ class _MyAppState extends State<MyApp>{
                       height: ScreenUtil.getInstance().setHeight(180),
                     ),
                     FormCard(),//VIENE DE LA CARPETA WIDGETS FormCard
-                    SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
+                    SizedBox(height: ScreenUtil.getInstance().setHeight(50)),
                     Row(
                       children: <Widget>[
                         Row(
@@ -123,7 +147,47 @@ class _MyAppState extends State<MyApp>{
             )
           ],
         ),
+    
     );
     
+  }
+}
+
+
+
+class Screen extends StatefulWidget {
+  @override
+  _ScreenState createState() => _ScreenState();
+}
+
+class _ScreenState extends State<Screen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        //child: Text('Hello World'),
+          child: Container(
+            margin:EdgeInsets.fromLTRB(0, 120, 0, 0),
+            child: SplashScreen(
+          seconds: 12,
+          title: new Text("Cole",
+            style: new TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              
+            )
+          ),
+          backgroundColor: Colors.white,
+          image: Image.asset("assets/splash.gif"),
+          loaderColor: Colors.white,//Ponerlo blanco
+          styleTextUnderTheLoader: new TextStyle(),
+          photoSize: 120.0,
+          loadingText: Text(""),//Texto del cargando
+          navigateAfterSeconds: MyApp(),
+    
+        ),
+        ),
+      ),
+    );
   }
 }
