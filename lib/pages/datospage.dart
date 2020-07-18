@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:proyectocolegio/Entidades/usuario.dart';
 import '../Widgets/bodyImagen.dart';
 import '../bloc_navigation_bloc/navigation_bloc.dart';
+import 'package:proyectocolegio/sidebar/sidebar.dart' as side;
 
-class DatosPage extends StatelessWidget with NavigationStates {
+Usuario user;
+
+class DatosPage extends StatefulWidget with NavigationStates {
+  @override
+  _DatosPageState createState() => _DatosPageState();
+  
+
+}
+
+class _DatosPageState extends State<DatosPage> {
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    user = side.user;
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(8.0),
@@ -20,11 +44,11 @@ class DatosPage extends StatelessWidget with NavigationStates {
           
           children: <Widget>[
            
-           
+            
                 
                      
-                  
-            profilePage("Maria","Rodriguez"," 70194933"," 990667284"," i20172334@cibertec.edu.pe"),
+              
+            profilePage(user.nombre,user.apellido,user.dni,user.celular,user.correo),
                 
             
             BodyImagen()
@@ -46,6 +70,7 @@ class DatosPage extends StatelessWidget with NavigationStates {
 }
 
 Center profilePage(String nombre, String apellido, String dni, String celular, String correo){
+  
   return Center(
     child: Padding(
       padding: const EdgeInsets.all(16.0),

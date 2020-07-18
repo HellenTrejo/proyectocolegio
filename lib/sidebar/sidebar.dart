@@ -2,10 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyectocolegio/Entidades/usuario.dart';
 import '../bloc_navigation_bloc/navigation_bloc.dart';
 import '../main.dart';
 import '../sidebar/menu_item.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:proyectocolegio/main.dart' as mein;
+
+
+
+int tokenId;
+Usuario user;
 
 class SideBar extends StatefulWidget {
   @override
@@ -26,6 +34,17 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     isSidebarOpnenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpnenedStreamController.stream;
     isSidebarOpenedSink =isSidebarOpnenedStreamController.sink;
+
+    Future<void> _returnValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tokenId = await prefs.getInt("token") ?? -1;
+    user = await mein.helper.getUsuario(tokenId);
+    }
+    
+    _returnValue();
+   // _returnValue().then((value) => tokenId=value);
+   // mein.helper.getUsuario(tokenId).then((value) => user = value);
+    
   }
 
   @override
@@ -87,7 +106,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                     SizedBox(height: 90,
                     ),
                     ListTile(
-                      title: Text("COLE", 
+                      title: Text("COLE "+ tokenId.toString(), 
                       style: TextStyle(color: Colors.white,fontFamily: "Poppins-Bold", fontSize: 20, fontWeight: FontWeight.w800),
                       ),
                       leading: CircleAvatar(

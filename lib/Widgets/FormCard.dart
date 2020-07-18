@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:proyectocolegio/globals.dart' as globals;
+import 'package:proyectocolegio/main.dart' as mein;
 
-class FormCard extends StatelessWidget{
+
+
+class FormCard extends StatefulWidget{
   @override
-  Widget build(BuildContext context) {
+  _FormCardState createState() => _FormCardState();
+}
+
+class _FormCardState extends State<FormCard> {
+
+   @override
+   void dispose(){
+     globals.userDniCtrl.dispose();
+     globals.userPassCtrl.dispose();
+     super.dispose();
+   }
+  
+  @override
+  Widget build(BuildContext context) {   
     return new Container(
                       width: double.infinity,
                       height: ScreenUtil.getInstance().setHeight(500),
@@ -25,7 +42,7 @@ class FormCard extends StatelessWidget{
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Login", 
+                              Text("Login ", 
                                 style:TextStyle(
                                   fontSize: ScreenUtil.getInstance().setSp(45),
                                   fontFamily: "Poppins-Bold",
@@ -38,6 +55,7 @@ class FormCard extends StatelessWidget{
                                     fontFamily: "Poppins-Medium",
                                     fontSize: ScreenUtil.getInstance().setSp(26))),
                               TextField(
+                                controller: globals.userDniCtrl,
                                 decoration: InputDecoration(
                                   hintText: "username",
                                   hintStyle: TextStyle(
@@ -51,6 +69,7 @@ class FormCard extends StatelessWidget{
                                     fontFamily: "Poppins-Medium",
                                     fontSize: ScreenUtil.getInstance().setSp(26))),
                               TextField(
+                                controller: globals.userPassCtrl,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   hintText: "password",

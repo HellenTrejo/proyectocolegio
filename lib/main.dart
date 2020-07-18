@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'Home.dart';
 import 'Widgets/FormCard.dart';
 import 'http/http_helper.dart';
+import 'package:proyectocolegio/Home.dart';
+import 'package:proyectocolegio/globals.dart' as globals;
 
-void main() => runApp(MaterialApp(
+
+HttpHelper helper;
+
+
+
+void main() => runApp(MaterialApp(  
     home: Screen(),
     debugShowCheckedModeBanner: false,
 ));
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -16,28 +23,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp>{
-//
-  String result;
-  HttpHelper helper;
-
-  @override
+@override
   void initState() {
     helper= HttpHelper();
     super.initState();
   }
 
-  
+
+
+//
   @override
   Widget build(BuildContext context) {
-    helper.listaAlumnos().then(
-      (value) {
-        setState(() {
-          result = value;
-        });
-      }
-    );
-
-
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
@@ -55,9 +51,6 @@ class _MyAppState extends State<MyApp>{
                   ),
                   Expanded(
                     child: Container(
-                      //
-                      child: Text(result),
-                      //
                     ),
                     ),
                     Image.asset("assets/image_02.png")
@@ -87,7 +80,7 @@ class _MyAppState extends State<MyApp>{
                     SizedBox(
                       height: ScreenUtil.getInstance().setHeight(180),
                     ),
-                    FormCard(),//VIENE DE LA CARPETA WIDGETS FormCard
+                    FormCard(),   //VIENE DE LA CARPETA WIDGETS FormCard                   
                     SizedBox(height: ScreenUtil.getInstance().setHeight(50)),
                     Row(
                       children: <Widget>[
@@ -125,10 +118,26 @@ class _MyAppState extends State<MyApp>{
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: (){
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Home()),);
+                            onTap: () async{
+                              var dni = globals.userDniCtrl.text;
+                              var pass = globals.userPassCtrl.text;
+                              var log = await helper.verUsuario(dni, pass);
+
+                                if(log == "Si"){
+                                  Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => Home()),);
+                                  globals.userDniCtrl.clear();
+                                  globals.userPassCtrl.clear();
+                                }
+                                else{
+                                  return showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return AlertDialog(
+                                        content: Text("No, I don't think so"),
+                                      );
+                                    });
+                                }                             
                             },//Creo que aquí se añade el metodo
                             child: Center(
                               child: Text("INGRESAR", style: TextStyle(color: Colors.white,
@@ -161,6 +170,9 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
+  
+ 
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +181,7 @@ class _ScreenState extends State<Screen> {
           child: Container(
             margin:EdgeInsets.fromLTRB(0, 120, 0, 0),
             child: SplashScreen(
-          seconds: 12,
+          seconds: 3,
           title: new Text("Cole",
             style: new TextStyle(
               fontWeight: FontWeight.bold,
