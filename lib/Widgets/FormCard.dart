@@ -42,7 +42,7 @@ class _FormCardState extends State<FormCard> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Login ", 
+                              Text("Login", 
                                 style:TextStyle(
                                   fontSize: ScreenUtil.getInstance().setSp(45),
                                   fontFamily: "Poppins-Bold",

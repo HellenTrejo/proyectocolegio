@@ -42,8 +42,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     }
     
     _returnValue();
-   // _returnValue().then((value) => tokenId=value);
-   // mein.helper.getUsuario(tokenId).then((value) => user = value);
     
   }
 
@@ -106,7 +104,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                     SizedBox(height: 90,
                     ),
                     ListTile(
-                      title: Text("COLE "+ tokenId.toString(), 
+                      title: Text("COLE", 
                       style: TextStyle(color: Colors.white,fontFamily: "Poppins-Bold", fontSize: 20, fontWeight: FontWeight.w800),
                       ),
                       leading: CircleAvatar(

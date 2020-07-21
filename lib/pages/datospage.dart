@@ -48,7 +48,7 @@ class _DatosPageState extends State<DatosPage> {
                 
                      
               
-            profilePage(user.nombre,user.apellido,user.dni,user.celular,user.correo),
+            profilePage(user.nombre,user.apellido,user.dni,user.celular +" "+ user.idRol.toString(),user.correo),
                 
             
             BodyImagen()

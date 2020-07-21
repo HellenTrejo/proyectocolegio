@@ -1,9 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectocolegio/bloc_navigation_bloc/navigation_bloc.dart';
+import 'package:proyectocolegio/http/http_helper.dart';
 import 'package:proyectocolegio/pages/detallenotaspage.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:proyectocolegio/main.dart' as mein;
+import 'package:proyectocolegio/sidebar/sidebar.dart' as side;
 
-class NotasPage extends StatelessWidget with NavigationStates{
+List cursos;
+List nomCursos;
+int contador;
+
+
+class NotasPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
@@ -43,7 +52,7 @@ class NotasPage extends StatelessWidget with NavigationStates{
                   child: Column(
                     children: <Widget>[
                       DescripcionCurso(
-                        name: "Matemática I",
+                        name: "Matemática I" + nomCursos[0],
                         press: () {
                           Navigator.push(
                               context,
@@ -173,6 +182,68 @@ class CursoInfo extends StatelessWidget {
           height: 185,
         ),
       ],
+    );
+  }
+}
+
+class ScreenNotas extends StatefulWidget with NavigationStates{
+  @override
+  _ScreenState createState() => _ScreenState();
+}
+
+class _ScreenState extends State<ScreenNotas> {
+  
+  @override void initState() {
+    mein.helper = HttpHelper();
+    var id = side.tokenId;
+    nomCursos = new List();
+
+    Future<void> cursoValue() async {
+      cursos = await mein.helper.getIdCursosXUsuario(id);
+      for(var i in cursos){
+        var name = await mein.helper.getDesCurso(i);
+        nomCursos.add(name);
+      }
+    }
+
+    Future initialize() async{
+      setState(() {
+        contador = cursos.length;
+      });
+    }
+
+    cursoValue();
+    initialize();
+    super.initState();
+  }
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        //child: Text('Hello World'),
+          child: Container(
+            margin:EdgeInsets.fromLTRB(0, 120, 0, 0),
+            child: SplashScreen(
+          seconds: 3,
+          title: new Text("Cole",
+            style: new TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              
+            )
+          ),
+          backgroundColor: Colors.white,
+          image: Image.asset("assets/splash.gif"),
+          loaderColor: Colors.white,//Ponerlo blanco
+          styleTextUnderTheLoader: new TextStyle(),
+          photoSize: 120.0,
+          loadingText: Text(""),//Texto del cargando
+          navigateAfterSeconds: NotasPage(),
+    
+        ),
+        ),
+      ),
     );
   }
 }

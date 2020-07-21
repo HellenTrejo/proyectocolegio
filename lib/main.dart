@@ -7,6 +7,7 @@ import 'package:proyectocolegio/Home.dart';
 import 'package:proyectocolegio/globals.dart' as globals;
 
 
+
 HttpHelper helper;
 
 
@@ -134,7 +135,7 @@ class _MyAppState extends State<MyApp>{
                                     context: context,
                                     builder: (context){
                                       return AlertDialog(
-                                        content: Text("No, I don't think so"),
+                                        content: Text("Usuario y/o contraseña incorrecto(s)"),
                                       );
                                     });
                                 }                             
