@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyectocolegio/globals.dart' as globals;
 import 'package:proyectocolegio/main.dart' as mein;
@@ -23,7 +24,7 @@ class _FormCardState extends State<FormCard> {
   Widget build(BuildContext context) {   
     return new Container(
                       width: double.infinity,
-                      height: ScreenUtil.getInstance().setHeight(500),
+                      height: ScreenUtil.getInstance().setHeight(525),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
@@ -56,10 +57,18 @@ class _FormCardState extends State<FormCard> {
                                     fontSize: ScreenUtil.getInstance().setSp(26))),
                               TextField(
                                 controller: globals.userDniCtrl,
+                               
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(8),
+                                ],
+                                 
                                 decoration: InputDecoration(
                                   hintText: "username",
                                   hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 12.0)),
+                                    
                               ),
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(30),
@@ -70,8 +79,11 @@ class _FormCardState extends State<FormCard> {
                                     fontSize: ScreenUtil.getInstance().setSp(26))),
                               TextField(
                                 controller: globals.userPassCtrl,
+                                
                                 obscureText: true,
+                                maxLength: 10,
                                 decoration: InputDecoration(
+                                  
                                   hintText: "password",
                                   hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 12.0)),
@@ -85,3 +97,5 @@ class _FormCardState extends State<FormCard> {
                     );
   }
 }
+
+

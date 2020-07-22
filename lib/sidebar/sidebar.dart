@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyectocolegio/Entidades/usuario.dart';
+import 'package:proyectocolegio/pages/notaspage.dart';
 import '../bloc_navigation_bloc/navigation_bloc.dart';
 import '../main.dart';
 import '../sidebar/menu_item.dart';
@@ -146,6 +148,10 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       onTap: (){
                         onIconPreseed();
                         BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.NotasPageClickedEvent);
+                        // Navigator.push(
+                          //    context,
+                            //  CupertinoPageRoute(builder: (context) => ScreenNotas()),);
+                          
                       },
                     ),
                     Divider(

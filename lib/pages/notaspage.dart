@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectocolegio/bloc_navigation_bloc/navigation_bloc.dart';
 import 'package:proyectocolegio/http/http_helper.dart';
+import 'package:proyectocolegio/pages/detallealumnos.dart';
 import 'package:proyectocolegio/pages/detallenotaspage.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:proyectocolegio/main.dart' as mein;
@@ -12,7 +13,7 @@ List nomCursos;
 int contador;
 
 
-class NotasPage extends StatelessWidget{
+class NotasPage extends StatelessWidget with NavigationStates  {
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
@@ -52,7 +53,7 @@ class NotasPage extends StatelessWidget{
                   child: Column(
                     children: <Widget>[
                       DescripcionCurso(
-                        name: "Matemática I" + nomCursos[0],
+                        name: " I " + nomCursos[0],
                         press: () {
                           Navigator.push(
                               context,
@@ -74,7 +75,13 @@ class NotasPage extends StatelessWidget{
                       ),
                       DescripcionCurso(
                         name: "Comunicación",
-                        press: () {},
+                        press: () {
+                          //PROBANDO HACIA  DETALLE ALUMNOS
+                             Navigator.push(
+                              context,
+                              CupertinoPageRoute(builder: (context) => DetalleAlumnos()),);
+
+                        },
                       ),
                     ],
                   ),
@@ -186,7 +193,7 @@ class CursoInfo extends StatelessWidget {
   }
 }
 
-class ScreenNotas extends StatefulWidget with NavigationStates{
+class ScreenNotas extends StatefulWidget with NavigationStates {
   @override
   _ScreenState createState() => _ScreenState();
 }
@@ -226,7 +233,7 @@ class _ScreenState extends State<ScreenNotas> {
             margin:EdgeInsets.fromLTRB(0, 120, 0, 0),
             child: SplashScreen(
           seconds: 3,
-          title: new Text("Cole",
+          title: new Text("",
             style: new TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
@@ -234,10 +241,10 @@ class _ScreenState extends State<ScreenNotas> {
             )
           ),
           backgroundColor: Colors.white,
-          image: Image.asset("assets/splash.gif"),
+          image: Image.asset("assets/quimica.gif"),
           loaderColor: Colors.white,//Ponerlo blanco
           styleTextUnderTheLoader: new TextStyle(),
-          photoSize: 120.0,
+          photoSize: 130.0,
           loadingText: Text(""),//Texto del cargando
           navigateAfterSeconds: NotasPage(),
     
