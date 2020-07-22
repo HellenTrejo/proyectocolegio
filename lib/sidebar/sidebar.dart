@@ -16,6 +16,9 @@ import 'package:proyectocolegio/main.dart' as mein;
 
 int tokenId;
 Usuario user;
+List nomCursos;
+List cursos;
+int contador;
 
 class SideBar extends StatefulWidget {
   @override
@@ -41,10 +44,13 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     SharedPreferences prefs = await SharedPreferences.getInstance();
     tokenId = await prefs.getInt("token") ?? -1;
     user = await mein.helper.getUsuario(tokenId);
+    onTapNotas(); 
     }
     
-    _returnValue();
+                           
     
+    _returnValue();
+       
   }
 
   @override
@@ -67,8 +73,26 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
        isSidebarOpenedSink.add(true);
       _animationController.forward();
     }
+  }
 
+  void onTapNotas(){
+    nomCursos = new List();
 
+    initialize() async{
+      setState(() {
+        contador = cursos.length;
+      });
+    }
+    cursoValue() async {
+        cursos = await mein.helper.getIdCursosXUsuario(tokenId);
+        for(var i in cursos){
+          var name = await mein.helper.getDesCurso(i);
+          nomCursos.add(name);
+        }        
+        initialize();      
+    }
+
+    cursoValue();
   }
 
 
@@ -146,11 +170,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       icon: Icons.grade,
                       title: "Notas",
                       onTap: (){
-                        onIconPreseed();
+                        onIconPreseed();                        
                         BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.NotasPageClickedEvent);
-                        // Navigator.push(
-                          //    context,
-                            //  CupertinoPageRoute(builder: (context) => ScreenNotas()),);
                           
                       },
                     ),

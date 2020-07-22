@@ -25,7 +25,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates>{
         yield DatosPage();
         break;
       case NavigationEvents.NotasPageClickedEvent: 
-        yield ScreenNotas();
+        yield NotasPage();
         break;
     }
   }

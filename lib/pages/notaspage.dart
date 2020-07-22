@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyectocolegio/bloc_navigation_bloc/navigation_bloc.dart';
 import 'package:proyectocolegio/http/http_helper.dart';
 import 'package:proyectocolegio/pages/detallealumnos.dart';
@@ -13,7 +14,21 @@ List nomCursos;
 int contador;
 
 
-class NotasPage extends StatelessWidget with NavigationStates  {
+class NotasPage extends StatefulWidget with NavigationStates  {
+  @override
+  _NotasPageState createState() => _NotasPageState();
+}
+
+class _NotasPageState extends State<NotasPage> {
+
+  @override void initState() {
+    cursos = side.cursos;
+    nomCursos = side.nomCursos;
+    contador = side.contador;
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
@@ -193,6 +208,7 @@ class CursoInfo extends StatelessWidget {
   }
 }
 
+/*
 class ScreenNotas extends StatefulWidget with NavigationStates {
   @override
   _ScreenState createState() => _ScreenState();
@@ -223,6 +239,12 @@ class _ScreenState extends State<ScreenNotas> {
     initialize();
     super.initState();
   }
+
+  @override 
+  dispose(){
+    BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.NotasPageClickedEvent);
+    super.dispose();
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -245,12 +267,11 @@ class _ScreenState extends State<ScreenNotas> {
           loaderColor: Colors.white,//Ponerlo blanco
           styleTextUnderTheLoader: new TextStyle(),
           photoSize: 130.0,
-          loadingText: Text(""),//Texto del cargando
-          navigateAfterSeconds: NotasPage(),
-    
+          loadingText: Text(""),//Texto del cargando          
+          //navigateAfterSeconds: NotasPage(),
         ),
         ),
       ),
     );
   }
-}
+}*/
