@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:proyectocolegio/components/background.dart';
-import 'package:proyectocolegio/pages/detalleevaluacion.dart';
+import 'package:proyectocolegio/pages/registronotapage.dart';
 
 
-class DetalleAlumnos extends StatelessWidget{
+
+class DetalleEvaluacionDoc extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Alumnos del curso', style: TextStyle(color: Colors.white),),
+        title: Text('Evaluaciones del curso', style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0xFF25002E),
         iconTheme: IconThemeData(
             color: Colors.white, //change your color here
@@ -20,17 +20,16 @@ class DetalleAlumnos extends StatelessWidget{
         child: Column(
           children: <Widget>[
             Stack(
-              
               alignment: Alignment.topCenter,
               children: <Widget>[
                 Container(
-                  height: 650,//TAMAÑO DEL FONDO
+                  height: 600,//TAMAÑO DEL FONDO
                   width: double.infinity,
                   
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/bg.png"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitWidth,
                     ),
                     //borderRadius: BorderRadius.only(
                       //bottomLeft: Radius.circular(50),
@@ -43,40 +42,38 @@ class DetalleAlumnos extends StatelessWidget{
                     child: Column(
                       children: <Widget>[
                        // SizedBox(height: 55),
-                        AlumnoInfo(),
+                        EvaluaInfo(),
                         
                       ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only( top: size.height * .4 -80),
+                  padding: EdgeInsets.only( top: size.height * .4 -50),
                   child: Column(
                     children: <Widget>[
-                      DescripcionAlumno(
-                        name: "Alumno 1 ",
-                        press: () {
-                          Navigator.push(
-                             context,
-                              CupertinoPageRoute(builder: (context) => DetalleEvaluacionDoc()),);
+                      DescripcionEvalu(
+                        name: "Practica I",
+                        nota: "20",
+                         press: () {
                           
-                        },
+                            Navigator.push(
+                             context,
+                              CupertinoPageRoute(builder: (context) => RegistroNota()),);
+                           
+                         },
                         
                       ),
-                      DescripcionAlumno(
-                        name: "Alumno 2",
+                      DescripcionEvalu(
+                        name: "Practica II",
+                        nota: "-",
                         press: () {},
                         
                       ),
-                      DescripcionAlumno(
-                        name: "Alumno 3",
+                      DescripcionEvalu(
+                        name: "Practica III",
+                        nota: "-",
                         press: () {},
-                       
-                      ),
-                      DescripcionAlumno(
-                        name: "Alumno 4",
-                       press: () {},
-                        
                       ),
                       
                     ],
@@ -92,13 +89,13 @@ class DetalleAlumnos extends StatelessWidget{
 }
 
 
-class DescripcionAlumno extends StatelessWidget {
+class DescripcionEvalu extends StatelessWidget {
   final String name;
-  final Function press;
- // final String nota;
+  final String nota;
+   final Function press;
  
-  const DescripcionAlumno({
-    Key key, this.name, this.press, 
+  const DescripcionEvalu({
+    Key key, this.name, this.nota, this.press, 
 
   }) : super(key: key);
 
@@ -107,8 +104,12 @@ class DescripcionAlumno extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
+
+
+
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8,horizontal: 30),
+      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 30),
       margin: EdgeInsets.only(bottom: 1, top: 10),
       width: size.width - 48,
       decoration: BoxDecoration(
@@ -140,21 +141,46 @@ class DescripcionAlumno extends StatelessWidget {
             ),
           ),
           Spacer(),
-          IconButton(
-            icon: Icon(
-              Icons.arrow_forward_ios, 
-              size:18,
-            ),
+          
+          FlatButton(
+            padding: EdgeInsets.all(2.0),
+            color: Colors.white,
+            splashColor: Colors.deepPurple[300],
+            
+            child: 
+              Text(" $nota ", style: 
+                TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                  
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             onPressed: press,
-          ),
+          )
+
+          /* RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: " $nota ",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ), 
+              ],
+            ),
+          ), */
         ],
       ),
     );
   }
 }
 
-class AlumnoInfo extends StatelessWidget {
-  const AlumnoInfo({
+class EvaluaInfo extends StatelessWidget {
+  const EvaluaInfo({
     Key key,
   }) : super(key: key);
 
@@ -168,23 +194,23 @@ class AlumnoInfo extends StatelessWidget {
             children: <Widget>[
               
               Text(
-                "Alumnos del", 
-                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 26),
+                "Notas de", 
+                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 30),
                 
               ),
               Text(
-                "Curso", 
+                "Evaluación", 
                 style: Theme.of(context).textTheme.display1.copyWith(fontWeight: FontWeight.bold,
-                fontSize: 26),
+                fontSize: 30),
               ),
               
             ],
           ),
         ),
         Image.asset(
-          "assets/group.png",
-          width: 150,
-          height: 170,
+          "assets/nota.png",
+          width: 210,
+          height: 205,
         ),
       ],
     );
