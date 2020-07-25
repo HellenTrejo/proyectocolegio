@@ -28,12 +28,22 @@ class _NotasPageState extends State<NotasPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
+      body: ListView.builder (
+                          itemCount: (nomCursos.length==null) ? 0 : nomCursos.length,
+                          itemBuilder: (BuildContext context, int position) {
+                            return Card(
+                              color: Colors.white,
+                              elevation: 2.0,
+                              child: ListTile(
+                                title: Text(nomCursos[position]),
+                                ));
+                          }),
+      
+      /*SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Stack(
@@ -67,6 +77,25 @@ class _NotasPageState extends State<NotasPage> {
                   padding: EdgeInsets.only( top: size.height * .4 -30),
                   child: Column(
                     children: <Widget>[
+                      
+                        DescripcionCurso(
+                          name: "X",
+                          press: (){},
+                        ),
+                      
+                      
+                       /*ListView.builder(
+                        itemCount: (nomCursos.length==null) ? 0: nomCursos.length,
+                        itemBuilder: (BuildContext context, int position){
+                          return DescripcionCurso(
+                            name: "X",
+                            press: (){},
+                          );
+                        }
+                        ),*/                                                                
+                       
+                      
+                      /*
                       DescripcionCurso(
                         name: " I " + nomCursos[0],
                         press: () {
@@ -98,6 +127,7 @@ class _NotasPageState extends State<NotasPage> {
 
                         },
                       ),
+                      */
                     ],
                   ),
                 ),
@@ -105,7 +135,7 @@ class _NotasPageState extends State<NotasPage> {
             ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 }
